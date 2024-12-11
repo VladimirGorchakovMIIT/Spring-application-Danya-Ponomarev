@@ -1,0 +1,71 @@
+type Salon{
+    id:ID!
+    name:String!
+    description:String!
+    location:String!
+    cars:[Car]
+    reviews:[Reviews]
+}
+
+type Car{
+    id:ID!
+    model:String!
+    bodyType:String!
+    engineType:String!
+    horsepower:Int!
+    fuelConsumption:Float!
+    owner:Salon
+}
+
+type Reviews{
+    id:ID!
+    title:String!
+    description:String!
+    estimation:Float!
+    owner:Salon
+}
+
+type Query{
+    getAllSalon:[Salon]
+    getSalonById(salonId:ID):Salon
+
+    getAllCar:[Car]
+    getCarById(carId:ID):Car
+
+    getAllReviews:[Reviews]
+    getReviewsById(reviewId:ID):[Reviews]
+}
+
+type Mutation{
+    createSalon(inputSalon:SalonInput):String
+    updateSalon(salonId:ID, inputSalon:SalonInput):String
+    deleteSalon(salonId:ID):String
+
+    createReviews(inputReviews:ReviewsInput, ownerId:ID):String
+    updateReviews(reviewsId:ID, reviewsInput:ReviewsInput, ownerId:ID):String
+    deleteReviews(reviewsId:ID):String
+
+    createCar(carInput:CarInput, ownerId:ID):String
+    updateCar(carId:ID, carInput:CarInput, ownerId:ID):String
+    deleteCar(carId:ID):String
+}
+
+input SalonInput{
+    name:String!
+    description:String!
+    location:String!
+}
+
+input CarInput{
+    model:String!
+    bodyType:String!
+    engineType:String!
+    horsepower:Int!
+    fuelConsumption:Float!
+}
+
+input ReviewsInput{
+    title:String!
+    description:String!
+    estimation:Float!
+}
